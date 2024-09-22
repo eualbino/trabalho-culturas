@@ -1,27 +1,24 @@
-import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
-import z from "zod";
-import { prisma } from "../lib/prisma";
+import { TypeBoxTypeProvider, Type } from "@fastify/type-provider-typebox";
 import { FastifyInstance } from "fastify";
+import { prisma } from "../lib/prisma";
 
 export async function getCulture(app: FastifyInstance) {
-
-  const createCultureSchema = z.object({
-    name: z.string(),
-    regiao: z.string(),
-    tema: z.string(),
-    idioma: z.string(),
-    conteudo: z.string(),
+  const cultureSchema = Type.Object({
+    name: Type.String(),
+    regiao: Type.String(),
+    tema: Type.String(),
+    idioma: Type.String(),
+    conteudo: Type.String(),
   });
 
-  app.withTypeProvider<TypeBoxTypeProvider>().get('/getCulture', {
+  app.withTypeProvider<TypeBoxTypeProvider>().get('/get-culture', {
     schema: {
-      summary: 'Get all cultures',
       response: {
-        200: z.array(createCultureSchema),
+        200: Type.Array(cultureSchema),
       }
     }
   }, async (request, reply) => {
     const cultures = await prisma.culture.findMany();
     return reply.send(cultures);
-  })
+  });
 }
