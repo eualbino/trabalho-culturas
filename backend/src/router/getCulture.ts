@@ -3,7 +3,8 @@ import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 
 export async function getCulture(app: FastifyInstance) {
-  const cultureSchema = Type.Object({
+  const cultureGetSchema = Type.Object({
+    id: Type.Number(),
     name: Type.String(),
     regiao: Type.String(),
     tema: Type.String(),
@@ -14,7 +15,7 @@ export async function getCulture(app: FastifyInstance) {
   app.withTypeProvider<TypeBoxTypeProvider>().get('/get-culture', {
     schema: {
       response: {
-        200: Type.Array(cultureSchema),
+        200: Type.Array(cultureGetSchema),
       }
     }
   }, async (request, reply) => {
