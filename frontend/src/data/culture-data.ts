@@ -10,7 +10,7 @@ interface PostCultureSchema{
 
 export async function createCulture(data: PostCultureSchema) {
   try {
-    await api.post("/createCulture", data)
+    await api.post("/create-culture", data)
   } catch (error) {
     console.log(error)
   }
@@ -18,8 +18,8 @@ export async function createCulture(data: PostCultureSchema) {
 
 export async function getAllCulture(){
   try {
-    const response = await api.get("/getCulture")
-    return response
+    const response = await api.get("/get-culture")
+    return response.data
   } catch (error) {
     console.log(error)
   }

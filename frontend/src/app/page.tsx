@@ -1,4 +1,5 @@
 
+import GetCultureDestaque from "@/components/getCultureDestaque/getCultureDestaque";
 import Navbar from "@/components/navbar/Navbar";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
@@ -56,7 +57,7 @@ export default function Home() {
           </div>
         </div>
         <div className="flex justify-start flex-col max-w-[600px] items-center pl-12 gap-y-5">
-          <h1>AQUI VAI CONTER OS DESTAQUES</h1>
+          <GetCultureDestaque/>
         </div>
       </main>
     </>
