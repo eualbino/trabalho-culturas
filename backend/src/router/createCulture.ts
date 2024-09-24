@@ -5,6 +5,7 @@ import { prisma } from "../lib/prisma";
 export async function createCulture(app: FastifyInstance) {
   const createCultureSchema = Type.Object({
     name: Type.String(),
+    escritor: Type.String(),
     regiao: Type.String(),
     tema: Type.String(),
     idioma: Type.String(),

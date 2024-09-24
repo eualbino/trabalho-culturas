@@ -6,6 +6,7 @@ export async function getCulture(app: FastifyInstance) {
   const cultureGetSchema = Type.Object({
     id: Type.Number(),
     name: Type.String(),
+    escritor: Type.String(),
     regiao: Type.String(),
     tema: Type.String(),
     idioma: Type.String(),

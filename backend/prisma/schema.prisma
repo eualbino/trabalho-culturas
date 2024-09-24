@@ -16,6 +16,7 @@ datasource db {
 model Culture {
   id Int @id @default(autoincrement())
   name String
+  escritor String
   regiao String
   tema String
   idioma String
