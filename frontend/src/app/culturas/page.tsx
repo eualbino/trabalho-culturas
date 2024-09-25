@@ -1,11 +1,12 @@
-
-
+import DialogInsert from "@/components/dialogInsert/dialogInsert";
+import GetCulture from "@/components/getCulture/getCulture";
 import Navbar from "@/components/navbar/Navbar";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Image from "next/image";
 
 export default function Culturas() {
+
   return (
     <div>
       <header className="flex justify-between pt-6 pl-20 pr-32  items-center">
@@ -29,6 +30,12 @@ export default function Culturas() {
           />
         </div>
       </header>
+      <main className="flex flex-col justify-center items-center gap-10">
+        <div>
+          <DialogInsert/>
+        </div>
+        <GetCulture/>
+      </main>
     </div>
   );
 }

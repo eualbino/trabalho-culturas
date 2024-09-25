@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { TanstackProvider } from "@/provider/TanstackProvider";
 
 export const metadata: Metadata = {
   title: "CulturaMundi",
@@ -15,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body
       >
-        {children}
+        <TanstackProvider>{children}</TanstackProvider>
       </body>
     </html>
   );

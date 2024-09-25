@@ -29,7 +29,7 @@ export default function Home() {
           />
         </div>
       </header>
-      <main className="mt-20 grid grid-cols-2 gap-x-8">
+      <main className="mt-10 grid grid-cols-2 gap-x-8">
         <div className="flex justify-start flex-col max-w-[800px] items-center pl-12 gap-y-5">
           <div className="flex justify-center items-center gap-y-5 flex-col">
             <h1 className="text-2xl font-bold">CulturaMundi - Explorando o Mundo Através das Culturas</h1>
