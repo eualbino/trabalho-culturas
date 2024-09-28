@@ -18,7 +18,7 @@ export default function GetCultureDestaque() {
   type Culture = z.infer<typeof cultureSchema>
 
   const { data: getCulture = [] } = useQuery<Culture[]>({
-    queryKey: ["culture"],
+    queryKey: ["cultureUpdate"],
     queryFn: () => getAllCulture(),
     refetchOnWindowFocus: false,
   })

@@ -9,6 +9,11 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+			screens: {
+        xs: { max: '950px' },
+				xl: { max: '650px' },
+				ls: { max: '580px' },
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

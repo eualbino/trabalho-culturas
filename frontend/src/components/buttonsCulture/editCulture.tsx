@@ -2,73 +2,82 @@
 import { z } from "zod";
 import { Button } from "../ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
-import { Input } from "../ui/input";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { editCulture, getUniqueCulture } from "@/data/culture-data";
 import { Label } from "../ui/label";
+import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createCulture } from "@/data/culture-data";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
-const formInsertCulturaSchema = z.object({
-  name: z.string().min(1, { 
-    message: "Insira o nome do país!"
-  }),
-  escritor: z.string().min(1, { 
-    message: "Insira o nome do escritor!"
-  }),
-  regiao: z.string().min(1, { 
-    message: "Insira o nome da região do país!"
-  }),
-  idioma: z.string().min(1, { 
-    message: "Insira o idioma falado nessa região!"
-  }),
-  tema: z.string().min(1, { 
-    message: "Insira o nome o tema que será falado!"
-  }),
-  conteudo: z.string().min(1, { 
-    message: "Insira o conteúdo que será falado!"
-  })
-})
+export default function EditCulture({ id }: { id: number }) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-type FormInsertCulturaSchema = z.infer<typeof formInsertCulturaSchema>
+  const cultureSchema = z.object({
+    id: z.number(),
+    escritor: z.string(),
+    tema: z.string(),
+  });
 
-export default function DialogInsert(){
-  const {handleSubmit, register} = useForm<FormInsertCulturaSchema>({
-    resolver: zodResolver(formInsertCulturaSchema),
+  const formInsertCulturaSchema = z.object({
+    name: z.string(),
+    escritor: z.string(),
+    regiao: z.string(),
+    tema: z.string(),
+    idioma: z.string(),
+    conteudo: z.string()
   })
 
-  const queryClient = useQueryClient()
+  type FormeInsertCulturaSchema = z.infer<typeof formInsertCulturaSchema>
 
-  const { mutateAsync: postCulture } = useMutation({
-    mutationFn: createCulture,
+  type Culture = z.infer<typeof cultureSchema>;
+
+  const { data: getUniqueCultures } = useQuery<Culture>({
+    queryKey: ["cultureUnique"],
+    queryFn: () => getUniqueCulture(id),
+    enabled: isDialogOpen,
+    refetchOnWindowFocus: false,
+  });
+
+  const { handleSubmit, register } = useForm<FormeInsertCulturaSchema>({
+    resolver: zodResolver(formInsertCulturaSchema)
+  })
+
+  const queryClient = useQueryClient();
+
+  const { mutateAsync: editCultureData } = useMutation({
+    mutationFn: (data: FormeInsertCulturaSchema) => editCulture(id, data),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["cultureUpdate"] })
-    }
-  })
+      queryClient.refetchQueries({ queryKey: ["cultureUpdate"] }),
+      setIsDialogOpen(false);
+    },
+  });
 
-  async function handleInsertData(data: FormInsertCulturaSchema){
-    await postCulture(data);
+  async function handleEditCultura(data: FormeInsertCulturaSchema) {
+    await editCultureData(data)
   }
 
-  return(
-  <Dialog>
+  return (
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
         <Button
-          variant="outline"
-          className="bg-black text-white"
+          variant="default"
+          className="bg-blue-400 p-2 rounded-md text-black font-semibold text-base h-[100%]"
         >
-          Inserir Cultura
+          Editar
         </Button>
       </DialogTrigger>
       <DialogContent className="xs2:w-[90%]">
-        <form onSubmit={handleSubmit(handleInsertData)}>
-          <DialogHeader>
-            <DialogTitle>Inserir Cultura</DialogTitle>
-            <DialogDescription>
-              Insira o nome da cultura que deseja adicionar!
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
+      <form onSubmit={handleSubmit(handleEditCultura)}>
+        <DialogHeader>
+          <DialogTitle>Realmente deseja editar esta cultura?</DialogTitle>
+          <DialogDescription>
+            {getUniqueCultures && (
+              <span>O tema: {getUniqueCultures.tema} escrito por {getUniqueCultures.escritor} será alterado!</span>
+            )}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
                 Nome do País
@@ -126,13 +135,13 @@ export default function DialogInsert(){
               />
             </div>
           </div>
-          <div className="flex justify-end">
-            <DialogClose asChild>
-              <Button type="submit">Inserir</Button>
-            </DialogClose>
-          </div>
-        </form>
+        <div className="flex justify-end">
+          <DialogClose asChild>
+            <Button type="submit">Editar</Button>
+          </DialogClose>
+        </div>
+      </form>
       </DialogContent>
     </Dialog>
-    )
+  );
 }

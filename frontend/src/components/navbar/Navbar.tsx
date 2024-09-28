@@ -45,7 +45,7 @@ export default function Navbar() {
         </>
       )}
       {isOpen && windowWidth < 950 && (
-        <div className="flex flex-col absolute w-[220px] bg-slate-200 top-32 justify-center items-center rounded-lg gap-3 p-6">
+        <div className="flex flex-col absolute w-[220px] bg-white top-32 justify-center items-center rounded-lg gap-3 p-6 shadow-lg z-50 shadow-slate-500 ls:top-64">
           <Link
             href="/"
             className="text-zinc-800 text-base font-semibold hover:text-zinc-600"
@@ -59,7 +59,7 @@ export default function Navbar() {
             Culturas
           </Link>
           <Link
-            href="#"
+            href="/mapas-culturas"
             className="text-zinc-800 text-base font-semibold hover:text-zinc-600"
           >
             Mapa Culturais

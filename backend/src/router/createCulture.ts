@@ -26,7 +26,7 @@ export async function createCulture(app: FastifyInstance) {
   }, async (request, reply) => {
     const data = request.body;
 
-    const culture = await prisma.culture.create({
+    await prisma.culture.create({
       data,
     });
 

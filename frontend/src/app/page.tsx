@@ -1,4 +1,3 @@
-
 import GetCultureDestaque from "@/components/getCultureDestaque/getCultureDestaque";
 import Navbar from "@/components/navbar/Navbar";
 import { Input } from "@/components/ui/input";
@@ -8,8 +7,8 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
-      <header className="flex justify-between pt-6 pl-20 pr-32  items-center">
-        <div className="">
+      <header className="flex justify-between pt-6 pl-20 pr-32 items-center xs:pl-5 xs:pr-10 ls:flex-col ls:pl-0 ls:pr-0">
+        <div className="ls:mr-2">
           <Image
             src="/logoculturamundi.png"
             alt="Logo da CulturaMundi"
@@ -17,27 +16,19 @@ export default function Home() {
             height={200}
           />
         </div>
-        <div className="flex flex-row justify-center gap-6 items-center mb-9">
+        <div className="flex flex-row justify-center gap-6 items-center mb-9 xs:pr-20 ls:pr-0">
           <Navbar/>
         </div>
-        <div className="flex items-center mb-9">
-          <Search className="w-5 h-4 text-sm absolute ml-2 text-zinc-600 xs:ml-4" />
-          <Input
-            className=" placeholder:text-zinc-500  dark:border-none dark:bg-zinc-900 border-2 border-black rounded-xl max-w-80 text-sm pl-9"
-            placeholder="Pesquisar..."
-            autoComplete="off"
-          />
-        </div>
       </header>
-      <main className="mt-10 grid grid-cols-2 gap-x-8">
-        <div className="flex justify-start flex-col max-w-[800px] items-center pl-12 gap-y-5">
-          <div className="flex justify-center items-center gap-y-5 flex-col">
-            <h1 className="text-2xl font-bold">CulturaMundi - Explorando o Mundo Através das Culturas</h1>
+      <main className="mt-10 grid grid-cols-2 gap-x-8 xs:grid-cols-1 xs:gap-20 xs:justify-items-center">
+        <div className="flex justify-start flex-col max-w-[800px] items-center pl-12 gap-y-5 ls:pl-5 ls:pr-5">
+          <div className="flex justify-center items-center gap-y-5 flex-col xs:justify-center">
+            <h1 className="text-2xl font-bold">Cultra Mundi - Explorando o Mundo Através das Culturas</h1>
             <hr className="w-[90%] border-[1px] border-zinc-500"/>
           </div>
           <div className="gap-y-5">
             <p className="font-semibold">
-              Bem-vindo ao CulturaMundi, um repositório online dedicado à
+              Bem-vindo ao Cultra Mundi, um repositório online dedicado à
               descoberta e compreensão das diversas culturas ao redor do mundo.
               Nosso objetivo é oferecer uma plataforma abrangente onde os
               usuários podem explorar informações detalhadas sobre os costumes,
@@ -56,7 +47,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="flex justify-start flex-col max-w-[600px] items-center pl-12 gap-y-5">
+        <div className="flex justify-start flex-col max-w-[600px] items-center pl-12 gap-y-5 ls:pl-0">
           <GetCultureDestaque/>
         </div>
       </main>

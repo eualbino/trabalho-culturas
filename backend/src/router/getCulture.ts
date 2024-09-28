@@ -5,6 +5,7 @@ import { prisma } from "../lib/prisma";
 export async function getCulture(app: FastifyInstance) {
   const cultureGetSchema = Type.Object({
     id: Type.Number(),
+    uuid: Type.Union([Type.String(), Type.Null()]),
     name: Type.String(),
     escritor: Type.String(),
     regiao: Type.String(),
@@ -20,7 +21,19 @@ export async function getCulture(app: FastifyInstance) {
       }
     }
   }, async (request, reply) => {
-    const cultures = await prisma.culture.findMany();
+    const { q } = request.query as { q?: string };
+    const cultures = q
+      ? await prisma.culture.findMany({
+        where: {
+          OR: [
+            { tema: { contains: q } },
+            { regiao: { contains: q } },
+            { idioma: { contains: q } },
+            { name: { contains: q } }
+          ]
+        },
+      })
+      : await prisma.culture.findMany();
     return reply.send(cultures);
   });
 }
