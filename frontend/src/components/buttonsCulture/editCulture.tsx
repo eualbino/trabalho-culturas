@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 
-export default function EditCulture({ id }: { id: number }) {
+export default function EditCulture({ id, q }: { id: number, q: string }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const cultureSchema = z.object({
@@ -33,7 +33,7 @@ export default function EditCulture({ id }: { id: number }) {
   type Culture = z.infer<typeof cultureSchema>;
 
   const { data: getUniqueCultures } = useQuery<Culture>({
-    queryKey: ["cultureUnique"],
+    queryKey: ["cultureUnique", q],
     queryFn: () => getUniqueCulture(id),
     enabled: isDialogOpen,
     refetchOnWindowFocus: false,

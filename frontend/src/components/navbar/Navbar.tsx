@@ -37,7 +37,7 @@ export default function Navbar() {
             Culturas
           </Link>
           <Link
-            href="#"
+            href="/mapas-culturais"
             className="text-zinc-800 text-base font-semibold hover:text-zinc-600"
           >
             Mapa Culturais
@@ -59,7 +59,7 @@ export default function Navbar() {
             Culturas
           </Link>
           <Link
-            href="/mapas-culturas"
+            href="/mapas-culturais"
             className="text-zinc-800 text-base font-semibold hover:text-zinc-600"
           >
             Mapa Culturais

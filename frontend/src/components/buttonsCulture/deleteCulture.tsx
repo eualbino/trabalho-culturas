@@ -6,7 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteCulture, getUniqueCulture } from "@/data/culture-data";
 import { useState } from "react";
 
-export default function DeleteCulture({ id }: { id: number }) {
+export default function DeleteCulture({ id, q }: { id: number, q: string }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const cultureSchema = z.object({
@@ -18,7 +18,7 @@ export default function DeleteCulture({ id }: { id: number }) {
   type Culture = z.infer<typeof cultureSchema>;
 
   const { data: culture } = useQuery<Culture>({
-    queryKey: ["cultureUnique"],
+    queryKey: ["cultureUnique", q],
     queryFn: () => getUniqueCulture(id),
     enabled: isDialogOpen,
     refetchOnWindowFocus: false,
