@@ -1,7 +1,5 @@
 import GetCultureDestaque from "@/components/getCultureDestaque/getCultureDestaque";
 import Navbar from "@/components/navbar/Navbar";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
